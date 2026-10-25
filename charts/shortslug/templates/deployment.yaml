@@ -9,7 +9,6 @@ spec:
   strategy:
 {{- if eq .Values.strategy.type "Recreate" }}
     type: Recreate
-    rollingUpdate: null
 {{- else }}
 {{ toYaml .Values.strategy | indent 4 }}
 {{- end }}
