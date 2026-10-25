@@ -7,7 +7,12 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
-    {{- toYaml .Values.strategy | nindent 4 }}
+{{- if eq .Values.strategy.type "Recreate" }}
+    type: Recreate
+    rollingUpdate: null
+{{- else }}
+{{ toYaml .Values.strategy | indent 4 }}
+{{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortslug.name" . }}
